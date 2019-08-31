@@ -14,18 +14,18 @@ pub use self::try_join::{
     TryJoin, TryJoin3, TryJoin4, TryJoin5,
 };
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 mod try_join_all;
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 pub use self::try_join_all::{try_join_all, TryJoinAll};
 
 // TODO
 // mod try_select;
 // pub use self::try_select::{try_select, TrySelect};
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 mod select_ok;
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 pub use self::select_ok::{select_ok, SelectOk};
 
 // Combinators

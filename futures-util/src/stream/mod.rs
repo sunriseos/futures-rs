@@ -8,7 +8,7 @@ use futures_core::future::Future;
 use futures_core::stream::{FusedStream, Stream, TryStream};
 use futures_core::task::{Context, Poll};
 use futures_sink::Sink;
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 use alloc::boxed::Box;
 use crate::future::Either;
 
@@ -103,46 +103,46 @@ pub use self::unfold::{unfold, Unfold};
 mod zip;
 pub use self::zip::Zip;
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 mod chunks;
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 pub use self::chunks::Chunks;
 
 cfg_target_has_atomic! {
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     mod buffer_unordered;
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub use self::buffer_unordered::BufferUnordered;
 
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     mod buffered;
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub use self::buffered::Buffered;
 
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     mod for_each_concurrent;
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub use self::for_each_concurrent::ForEachConcurrent;
 
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     mod futures_ordered;
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub use self::futures_ordered::FuturesOrdered;
 
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub mod futures_unordered;
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     #[doc(inline)]
     pub use self::futures_unordered::FuturesUnordered;
 
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     mod split;
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub use self::split::{SplitStream, SplitSink, ReuniteError};
 
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     mod select_all;
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub use self::select_all::{select_all, SelectAll};
 }
 
@@ -695,7 +695,7 @@ pub trait StreamExt: Stream {
         feature = "cfg-target-has-atomic",
         cfg(all(target_has_atomic = "cas", target_has_atomic = "ptr"))
     )]
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn for_each_concurrent<Fut, F>(
         self,
         limit: impl Into<Option<usize>>,
@@ -882,7 +882,7 @@ pub trait StreamExt: Stream {
     }
 
     /// Wrap the stream in a Box, pinning it.
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn boxed(self) -> Pin<Box<Self>>
         where Self: Sized
     {
@@ -905,7 +905,7 @@ pub trait StreamExt: Stream {
         feature = "cfg-target-has-atomic",
         cfg(all(target_has_atomic = "cas", target_has_atomic = "ptr"))
     )]
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn buffered(self, n: usize) -> Buffered<Self>
         where Self::Item: Future,
               Self: Sized
@@ -953,7 +953,7 @@ pub trait StreamExt: Stream {
         feature = "cfg-target-has-atomic",
         cfg(all(target_has_atomic = "cas", target_has_atomic = "ptr"))
     )]
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn buffer_unordered(self, n: usize) -> BufferUnordered<Self>
         where Self::Item: Future,
               Self: Sized
@@ -1049,7 +1049,7 @@ pub trait StreamExt: Stream {
     /// # Panics
     ///
     /// This method will panic of `capacity` is zero.
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn chunks(self, capacity: usize) -> Chunks<Self>
         where Self: Sized
     {
@@ -1084,7 +1084,7 @@ pub trait StreamExt: Stream {
         feature = "cfg-target-has-atomic",
         cfg(all(target_has_atomic = "cas", target_has_atomic = "ptr"))
     )]
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn split<Item>(self) -> (SplitSink<Self, Item>, SplitStream<Self>)
         where Self: Sink<Item> + Sized
     {

@@ -18,8 +18,17 @@ name = "futures_channel"
 std = ["futures-core-preview/std"]
 default = ["std"]
 
+# For std building
+rustc-internal-api = []
+rustc-dep-of-std = ["core", "compiler_builtins", "alloc", "rustc-internal-api", "futures-core-preview/rustc-dep-of-std"]
+
 [dependencies]
 futures-core-preview = { path = "../futures-core", version = "=0.3.0-alpha.16", default-features = false }
+
+# When built as part of libstd
+core = { version = "1.0.0", optional = true, package = "rustc-std-workspace-core" }
+compiler_builtins = { version = "0.1.16", optional = true }
+alloc = { version = "1.0.0", optional = true, package = "rustc-std-workspace-alloc" }
 
 [dev-dependencies]
 futures-preview = { path = "../futures", version = "=0.3.0-alpha.16", default-features = true }

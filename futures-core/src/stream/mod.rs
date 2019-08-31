@@ -4,7 +4,7 @@ use core::ops::DerefMut;
 use core::pin::Pin;
 use core::task::{Context, Poll};
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 /// An owned dynamically typed [`Stream`] for use in cases where you can't
 /// statically type your result or need to add some indirection.
 pub type BoxStream<'a, T> = Pin<alloc::boxed::Box<dyn Stream<Item = T> + Send + 'a>>;
@@ -143,7 +143,7 @@ impl<S, T, E> TryStream for S
     }
 }
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 mod if_alloc {
     use alloc::boxed::Box;
     use super::*;

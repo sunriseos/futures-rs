@@ -100,7 +100,7 @@ impl<Sp: ?Sized + LocalSpawn> LocalSpawn for &mut Sp {
     }
 }
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 mod if_alloc {
     use alloc::boxed::Box;
     use super::*;

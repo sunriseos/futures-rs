@@ -3,11 +3,7 @@ use futures::future::{ready, select_all};
 
 #[test]
 fn smoke() {
-    let v = vec![
-        ready(1),
-        ready(2),
-        ready(3),
-    ];
+    let v = vec![ready(1), ready(2), ready(3)];
 
     let (i, idx, v) = block_on(select_all(v));
     assert_eq!(i, 1);

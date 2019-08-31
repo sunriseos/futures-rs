@@ -7,7 +7,7 @@ use std::pin::Pin;
 
 struct Join<T, U> {
     stream: T,
-    sink: U
+    sink: U,
 }
 
 impl<T, U> Join<T, U> {
@@ -62,9 +62,9 @@ impl<T, U: Sink<Item>, Item> Sink<Item> for Join<T, U> {
 fn test_split() {
     let mut dest: Vec<i32> = Vec::new();
     {
-       let join = Join {
+        let join = Join {
             stream: stream::iter(vec![10, 20, 30]),
-            sink: &mut dest
+            sink: &mut dest,
         };
 
         let (sink, stream) = join.split();

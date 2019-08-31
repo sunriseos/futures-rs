@@ -41,9 +41,9 @@ pub use self::with::With;
 mod with_flat_map;
 pub use self::with_flat_map::WithFlatMap;
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 mod buffer;
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 pub use self::buffer::Buffer;
 
 impl<T: ?Sized, Item> SinkExt<Item> for T where T: Sink<Item> {}
@@ -158,7 +158,7 @@ pub trait SinkExt<Item>: Sink<Item> {
     ///
     /// This method is only available when the `std` feature of this
     /// library is activated, and it is activated by default.
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn buffer(self, capacity: usize) -> Buffer<Self, Item>
         where Self: Sized,
     {

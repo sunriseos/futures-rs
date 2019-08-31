@@ -9,7 +9,7 @@
 
 #![doc(html_root_url = "https://rust-lang-nursery.github.io/futures-api-docs/0.3.0-alpha.16/futures_sink")]
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 extern crate alloc;
 
 use futures_core::task::{Context, Poll};
@@ -158,7 +158,7 @@ where
 #[cfg(feature = "std")]
 mod channel_impls;
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 mod if_alloc {
     use super::*;
 
@@ -232,5 +232,5 @@ mod if_alloc {
     }
 }
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 pub use self::if_alloc::*;

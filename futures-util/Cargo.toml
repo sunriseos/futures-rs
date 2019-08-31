@@ -15,7 +15,7 @@ Common utilities and extension traits for the futures-rs library.
 name = "futures_util"
 
 [features]
-std = ["alloc", "futures-core-preview/std", "futures-io-preview/std", "futures-sink-preview/std", "slab", "memchr"]
+std = ["alloc_feature", "futures-core-preview/std", "futures-io-preview/std", "futures-sink-preview/std", "slab", "memchr"]
 default = ["std"]
 async-await = ["std", "futures-select-macro-preview", "proc-macro-hack", "proc-macro-nested", "rand", "rand_core"]
 compat = ["std", "futures_01"]
@@ -24,7 +24,16 @@ bench = []
 nightly = ["futures-core-preview/nightly", "futures-sink-preview/nightly"]
 cfg-target-has-atomic = ["futures-core-preview/cfg-target-has-atomic"]
 never-type = []
-alloc = ["futures-core-preview/alloc", "futures-sink-preview/alloc"]
+alloc_feature  = ["futures-core-preview/alloc_feature", "futures-sink-preview/alloc_feature"]
+
+# For std building
+rustc-internal-api = []
+rustc-dep-of-std = ["core", "compiler_builtins", "alloc", "rustc-internal-api",
+                    "futures-core-preview/rustc-dep-of-std",
+                    "futures-channel-preview/rustc-dep-of-std",
+                    "futures-io-preview/rustc-dep-of-std",
+                    "futures-sink-preview/rustc-dep-of-std",
+                    ]
 
 [dependencies]
 futures-core-preview = { path = "../futures-core", version = "=0.3.0-alpha.16", default-features = false }
@@ -41,6 +50,11 @@ memchr = { version = "2.2", optional = true }
 futures_01 = { version = "0.1.25", optional = true, package = "futures" }
 tokio-io = { version = "0.1.9", optional = true }
 pin-utils = "0.1.0-alpha.4"
+
+# When built as part of libstd
+core = { version = "1.0.0", optional = true, package = "rustc-std-workspace-core" }
+compiler_builtins = { version = "0.1.16", optional = true }
+alloc = { version = "1.0.0", optional = true, package = "rustc-std-workspace-alloc" }
 
 [dev-dependencies]
 futures-preview = { path = "../futures", version = "=0.3.0-alpha.16", features = ["async-await", "nightly"] }

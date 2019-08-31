@@ -12,7 +12,7 @@
 #[cfg(all(feature = "cfg-target-has-atomic", not(feature = "nightly")))]
 compile_error!("The `cfg-target-has-atomic` feature requires the `nightly` feature as an explicit opt-in to unstable features");
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 extern crate alloc;
 
 pub mod future;

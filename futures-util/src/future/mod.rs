@@ -7,9 +7,9 @@ use core::pin::Pin;
 use futures_core::future::Future;
 use futures_core::stream::Stream;
 use futures_core::task::{Context, Poll};
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 use alloc::boxed::Box;
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 use futures_core::future::{BoxFuture, LocalBoxFuture};
 
 // re-export for `select!`
@@ -38,17 +38,17 @@ pub use self::ready::{ready, ok, err, Ready};
 mod join;
 pub use self::join::{join, join3, join4, join5, Join, Join3, Join4, Join5};
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 mod join_all;
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 pub use self::join_all::{join_all, JoinAll};
 
 mod select;
 pub use self::select::{select, Select};
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 mod select_all;
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 pub use self::select_all::{select_all, SelectAll};
 
 // Combinators
@@ -89,9 +89,9 @@ mod chain;
 pub(crate) use self::chain::Chain;
 
 cfg_target_has_atomic! {
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     mod abortable;
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub use self::abortable::{abortable, Abortable, AbortHandle, AbortRegistration, Aborted};
 }
 
@@ -490,7 +490,7 @@ pub trait FutureExt: Future {
     }
 
     /// Wrap the future in a Box, pinning it.
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn boxed<'a>(self) -> BoxFuture<'a, Self::Output>
         where Self: Sized + Send + 'a
     {
@@ -500,7 +500,7 @@ pub trait FutureExt: Future {
     /// Wrap the future in a Box, pinning it.
     ///
     /// Similar to `boxed`, but without the `Send` requirement.
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn boxed_local<'a>(self) -> LocalBoxFuture<'a, Self::Output>
         where Self: Sized + 'a
     {

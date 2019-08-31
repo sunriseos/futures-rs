@@ -60,14 +60,14 @@ mod try_skip_while;
 pub use self::try_skip_while::TrySkipWhile;
 
 cfg_target_has_atomic! {
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     mod try_buffer_unordered;
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub use self::try_buffer_unordered::TryBufferUnordered;
 
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     mod try_for_each_concurrent;
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub use self::try_for_each_concurrent::TryForEachConcurrent;
 }
 
@@ -425,7 +425,7 @@ pub trait TryStreamExt: TryStream {
         feature = "cfg-target-has-atomic",
         cfg(all(target_has_atomic = "cas", target_has_atomic = "ptr"))
     )]
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn try_for_each_concurrent<Fut, F>(
         self,
         limit: impl Into<Option<usize>>,
@@ -700,7 +700,7 @@ pub trait TryStreamExt: TryStream {
         feature = "cfg-target-has-atomic",
         cfg(all(target_has_atomic = "cas", target_has_atomic = "ptr"))
     )]
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     fn try_buffer_unordered(self, n: usize) -> TryBufferUnordered<Self>
         where Self::Ok: TryFuture<Error = Self::Error>,
               Self: Sized

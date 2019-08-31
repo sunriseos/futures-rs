@@ -214,7 +214,7 @@ unsafe impl<'a, T> UnsafeFutureObj<'a, T> for Pin<&'a mut (dyn Future<Output = T
     unsafe fn drop(_ptr: *mut (dyn Future<Output = T> + 'a)) {}
 }
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 mod if_alloc {
     use super::*;
     use alloc::boxed::Box;

@@ -20,7 +20,7 @@ compile_error!("The `never-type` feature requires the `nightly` feature as an ex
 #[cfg(all(feature = "async-await", not(feature = "nightly")))]
 compile_error!("The `async-await` feature requires the `nightly` feature as an explicit opt-in to unstable features");
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "alloc_feature")]
 extern crate alloc;
 
 #[macro_use]
@@ -105,6 +105,6 @@ pub mod io;
 #[doc(hidden)] pub use crate::io::{AsyncReadExt, AsyncWriteExt, AsyncSeekExt, AsyncBufReadExt};
 
 cfg_target_has_atomic! {
-    #[cfg(feature = "alloc")]
+    #[cfg(feature = "alloc_feature")]
     pub mod lock;
 }

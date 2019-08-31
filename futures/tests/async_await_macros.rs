@@ -1,12 +1,12 @@
-#![recursion_limit="128"]
+#![recursion_limit = "128"]
 #![feature(async_await)]
 
-use futures::{Poll, pending, poll, join, try_join, select};
 use futures::channel::{mpsc, oneshot};
 use futures::executor::block_on;
 use futures::future::{self, FutureExt};
-use futures::stream::StreamExt;
 use futures::sink::SinkExt;
+use futures::stream::StreamExt;
+use futures::{join, pending, poll, select, try_join, Poll};
 use pin_utils::pin_mut;
 
 #[test]
@@ -194,7 +194,6 @@ fn try_join_size() {
     };
     assert_eq!(::std::mem::size_of_val(&fut), 44);
 }
-
 
 #[test]
 fn join_doesnt_require_unpin() {
